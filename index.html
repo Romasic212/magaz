@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./img/logo.jpg">
+    <title>Мерч</title>
+    <link rel="stylesheet" href="./css/stail.css">
+
+</head>
+<body>
+
+    <div class="header">
+        <h1>Интернет магазин</h1>
+    </div>
+
+    <h2>Худи</h2>
+    <!-- Секция 1 -->
+    <section class="section" id="section1">
+        
+        <div class="merch-slider">
+            <!-- Элементы мерча -->
+            <!-- Худи -->
+            <div class="merch-item">
+                <img src="./img/hudi1.jpg" alt="Худи">
+            </div>
+
+            <!-- Кепки -->
+            <div class="merch-item">
+                <img src="./img/hudi2.webp" alt="Кепка">
+            </div>
+
+             <!-- Кружки -->
+            <div class="merch-item">
+                <img src="./img/hudi3..jpg" alt="Кружка">
+            </div>
+
+
+            <!-- Футболки -->
+            <div class="merch-item">
+                <img src="./img/hudi4.jpg" alt="Футболка">
+            </div>
+
+            <!-- Наклейки -->
+            <div class="merch-item">
+                <img src="./img/hudi5.webp" alt="Наклейки">
+            </div>
+        </div>
+
+        <!-- Кнопки навигации -->
+        <button class="nav-button left" onclick="prevSlide(1)">&#10094;</button>
+        <button class="nav-button right" onclick="nextSlide(1)">&#10095;</button>
+    </section>
+
+    <h2>Футболки</h2>
+
+    <!-- Секция 2 -->
+    <section class="section" id="section2">
+       <div class="merch-slider-2">
+           <!-- Элементы мерча 2 -->
+            <div class="merch-item">
+                <img src="./img/fut1.png" alt="Значки">
+            </div>
+
+            <div class="merch-item">
+                <img src="./img/fut2.png" alt="Брелки">
+            </div>
+
+            <div class="merch-item">
+                <img src="./img/fut3.webp" alt="Чехлы">
+            </div>
+       </div>
+
+       <!-- Кнопки навигации -->
+       <button class="nav-button left" onclick="prevSlide(2)">&#10094;</button>
+       <button class="nav-button right" onclick="nextSlide(2)">&#10095;</button>
+    </section>
+    <footer>
+        <p>© Личный магазин Сони</p>
+    </footer>
+
+
+    <script>
+        const merchItems1 = document.querySelectorAll('#section1 .merch-item');
+        const merchItems2 = document.querySelectorAll('#section2 .merch-item');
+        let currentIndex1 = 0;
+        let currentIndex2 = 0;
+        let sliderVisible1 = false;
+        let sliderVisible2 = false;
+
+
+        function updateSlider(sectionNumber) {
+            let slider, currentIndex;
+            if (sectionNumber === 1) {
+                slider = document.querySelector('#section1 .merch-slider');
+                currentIndex = currentIndex1;
+            } else {
+                slider = document.querySelector('#section2 .merch-slider-2');
+                currentIndex = currentIndex2;
+            }
+            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+        }
+
+        function nextSlide(sectionNumber) {
+            let merchItems, currentIndex;
+            if (sectionNumber === 1) {
+                merchItems = merchItems1;
+                currentIndex = currentIndex1;
+                currentIndex1 = (currentIndex1 + 1) % merchItems1.length;
+            } else {
+                merchItems = merchItems2;
+                currentIndex = currentIndex2;
+                currentIndex2 = (currentIndex2 + 1) % merchItems2.length;
+            }
+             updateSlider(sectionNumber);
+        }
+
+        function prevSlide(sectionNumber) {
+             let merchItems, currentIndex;
+            if (sectionNumber === 1) {
+                merchItems = merchItems1;
+                currentIndex = currentIndex1;
+                currentIndex1 = (currentIndex1 - 1 + merchItems1.length) % merchItems1.length;
+            } else {
+                merchItems = merchItems2;
+                currentIndex = currentIndex2;
+                currentIndex2 = (currentIndex2 - 1 + merchItems2.length) % merchItems2.length;
+            }
+            updateSlider(sectionNumber);
+        }
+
+
+
+        function revealSection(sectionNumber) {
+            let section, slider, sliderVisible;
+            if (sectionNumber === 1) {
+                section = document.getElementById('section1');
+                slider = document.querySelector('#section1 .merch-slider');
+                sliderVisible = sliderVisible1;
+            } else {
+                section = document.getElementById('section2');
+                slider = document.querySelector('#section2 .merch-slider-2');
+                sliderVisible = sliderVisible2;
+            }
+
+
+            const sectionTop = section.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (sectionTop < windowHeight && !sliderVisible) {
+                slider.classList.add('show');
+                if (sectionNumber === 1) {
+                    sliderVisible1 = true;
+                } else {
+                    sliderVisible2 = true;
+                }
+
+
+                // Больше не удаляем слушатель, так как прокрутка нужна для обеих секций
+            }
+        }
+
+
+        function onScroll() {
+            revealSection(1);
+            revealSection(2);
+        }
+
+
+        // Добавляем обработчик события прокрутки для показа обеих секций
+        window.addEventListener('scroll', onScroll);
+
+        // Вызываем revealSection сразу, чтобы проверить, виден ли контейнер при загрузке страницы
+        onScroll();  // Вызываем onScroll вместо отдельных revealSection
+    </script>
+</body>
+</html>

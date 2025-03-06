@@ -1,0 +1,194 @@
+/* Обнуление стилей (полезно для предсказуемости) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #ffffff;
+    color: #333;
+    overflow-x: hidden; /* Скрываем полосу прокрутки по горизонтали */
+    scroll-behavior: smooth; /* Плавная прокрутка */
+    /* Увеличенный базовый размер шрифта для лучшей читаемости на мобильных устройствах */
+    font-size: 16px; /*  Важно!  Отправная точка для rem */
+    overflow-x: hidden;
+}
+html{
+    overflow-x: hidden;
+}
+
+/* Заголовок */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон */
+    padding: 10px; /* Меньше отступы на мобильных */
+    text-align: center;
+    z-index: 20; /* Заголовок поверх всего */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 15px;
+    /* Используем rem для адаптивного размера шрифта */
+    font-size: 1.8rem; /*  Примерно 28.8px  (1.8 * 16px) */
+    color: #2c3e50;
+}
+
+/* Секция */
+.section {
+    height: 100vh; /* Занимает всю высоту экрана */
+    width: 100vw; /* Занимает всю ширину экрана */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Слайдер мерча */
+.merch-slider, .merch-slider-2 {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.merch-slider.show, .merch-slider-2.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Элемент мерча */
+.merch-item {
+    flex: 0 0 80vw;
+    margin: 0 10vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрируем изображение по вертикали */
+    text-align: center;
+    background-color: #fff; /* Белый фон для карточек */
+    padding: 15px; /* Уменьшаем отступы внутри карточки */
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для изображения */
+.merch-item img {
+    width: auto;
+    height: auto;
+    max-width: 100%; /* Важно: изображение не должно выходить за пределы контейнера */
+    max-height: 400px; /* Ограничиваем максимальную высоту, чтобы карточка не была слишком высокой */
+    object-fit: contain; /* Сохраняем пропорции и полностью помещаем изображение в область */
+}
+
+/* Кнопки навигации */
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    padding: 15px; /* Уменьшаем отступы кнопок */
+    font-size: 1.5em; /*  Уменьшаем размер кнопок */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10; /* Кнопки поверх контента */
+}
+
+.nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.nav-button.left {
+    left: 0;
+}
+
+.nav-button.right {
+    right: 0;
+}
+
+h2 {
+    text-align: center;
+    padding-top: 100px; /*  Уменьшаем отступ, чтобы заголовок не был слишком далеко от контента */
+    padding-bottom: 15px;  /*  Уменьшаем отступ */
+    font-size: 2.5rem; /* Примерно 40px (2.5 * 16px) */
+}
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    max-width: 100%;
+}
+footer p{
+    margin-top: 40px;
+    margin-bottom: 25px;
+    font-size: 1.4em;
+}
+
+
+
+/* Адаптивность (Media Queries) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Можно еще немного уменьшить базовый шрифт на очень маленьких экранах */
+        width: 100%; /* Используем viewport width */
+        overflow-x: hidden;
+    }
+
+    .header {
+        padding: 5px; /* Еще меньше отступов на самых маленьких экранах */
+    }
+
+    .header h1 {
+        font-size: 1.6rem; /*  Еще немного уменьшаем заголовок */
+    }
+
+    h2 {
+        font-size: 2rem; /* Подстраиваем размер заголовка */
+    }
+
+    .merch-item {
+        flex: 0 0 90vw;
+        margin: 0 5vw;
+        padding: 10px; /* Ещё меньше отступов в карточке */
+    }
+
+    .nav-button {
+        padding: 10px;  /* Еще меньше отступы у кнопок */
+        font-size: 1.2em; /*  Еще меньше размер кнопок */
+    }
+    .merch-item {
+        flex: 0 0 80vw; /* Adjust for smaller screens */
+        margin: 0 10vw;
+    }
+
+}
+
+@media (max-width: 480px) { /* Для самых маленьких экранов (например, очень старые телефоны) */
+    .header h1 {
+        font-size: 1.4rem; /*  Совсем маленький заголовок */
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .merch-item img {
+        max-height: 300px; /*  Еще немного уменьшаем высоту изображений */
+    }
+}
